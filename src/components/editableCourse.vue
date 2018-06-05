@@ -1,7 +1,7 @@
 <template>
   <view class="weui-cell info" >
     <view class="weui-cell__bd input-area">
-      <view class="weui-flex elevation-8">
+      <view class="weui-flex">
         <view class="weui-flex__item">
         <input class="weui-input " placeholder="请输入课程" focus="true" :value="course" v-model="inputValue" @confirm="$emit('inputConfirm', inputValue)"/>
         </view>
@@ -62,21 +62,23 @@ export default {
   position: relative;
   left: 0;
   top: 0;
-  height:30px;
+  height:100%;
   z-index: 3000!important;
   background-color: white;
   margin-bottom: 3px;
+  padding: 0 8px;
+  border-radius: 20rpx;
 }
 .input-area input{
   background-color: white;
   max-height: 40rpx !important;
 }
-.select-area {
+
+.select-list {
+  width: 500rpx;
   position: absolute;
   z-index: 3000;
-  top: 40px;
-}
-.select-list {
+  top: 48px;
   background-color: #f8f8f8;
   z-index: 1000;
   margin-top: 0 !important;

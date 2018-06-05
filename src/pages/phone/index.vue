@@ -36,7 +36,7 @@
                 <button class="weui-btn" type="primary" formType="submit" :disabled='sumbitDisable'>绑定</button>
               </view>
               <view class="weui-flex__item">
-                <button class="weui-btn" formType="reset">重置</button>
+                <button class="weui-btn" type="warn" formType="reset" :disabled='bindPhone.length === 0'>解绑</button>
               </view>
             </view>
           </view>
@@ -89,7 +89,8 @@ export default {
     ...mapActions([
       'toRequestCode',
       'toBindPhone',
-      'toGetPhone'
+      'toGetPhone',
+      'toUnbindPhone'
     ]),
 
     validPhone () {
@@ -114,9 +115,15 @@ export default {
       }
     },
 
-    formReset () {
-      this.inputPhone = ''
-      this.inputCode = ''
+    formReset (ev) {
+      var formId = ev.mp.detail.formId
+      this.toUnbindPhone(formId).then(() => {
+        wx.showToast({
+          title: '绑定成功',
+          icon: 'success',
+          mask: true
+        })
+      })
     },
 
     formSubmit (ev) {
@@ -126,7 +133,8 @@ export default {
           code: this.inputCode,
           formId})
           .then(() => {
-            this.formReset()
+            this.inputPhone = ''
+            this.inputCode = ''
             wx.showToast({
               title: '绑定成功',
               icon: 'success',

@@ -1,11 +1,16 @@
 <template>
-  <view class="container page">
+  <block>
+  <view v-if="loading" class="container page" >
+    <view class="icon-box">
+        <icon type="waiting" size="93"></icon>
+    </view>
+  </view>
+  <view class="container page animated fadeIn" v-else>
     <view class="page__hd">
       <view class="page__title">我的课表</view>
-      <view class="page__desc" @click="testTap"></view>
     </view>
     <view class="page__bd content">
-      <view class="day-wrapper" :id="'day'+i" :class="{currentDay: currentWeekday===i}" v-for="(day, i) in courseInfo" :key="i">
+      <view class="day-wrapper" :class="{currentDay: currentWeekday===i}" v-for="(day, i) in courseInfo" :key="i">
         <view class="weui-flex primary_title" @click="switchCollapse(i)">
           <view><view class="placeholder">{{day.name}}{{currentWeekday === i ? '(今天)':''}}</view></view>
           <view class="weui-flex__item"></view>
@@ -23,6 +28,8 @@
       </view>
     </view>
   </view>
+  </block>
+
 
 </template>
 
@@ -37,7 +44,8 @@ export default {
       collapseStatus: [false, false, false, false, false, false, false],
       motto: 'Hello World',
       animation: {},
-      currentWeekday: 0
+      currentWeekday: 0,
+      loading: true
     }
   },
 
@@ -51,6 +59,17 @@ export default {
   components: {
     'day-item': dayItem,
     collapse
+  },
+
+  watch: {
+    courseInfo (curval, oldval) {
+      if (oldval.length === 0) {
+        this.loading = false
+        setTimeout(() => {
+          this.toCurrentDay()
+        }, 200)
+      }
+    }
   },
 
   methods: {
@@ -77,6 +96,13 @@ export default {
       var date = new Date()
       var weekday = date.getDay()
       return weekday === 0 ? 6 : (weekday - 1)
+    },
+
+    toCurrentDay () {
+      wx.pageScrollTo({
+        scrollTop: 110 + 37 * this.currentWeekday,
+        duration: 500
+      })
     }
   },
 
@@ -99,10 +125,8 @@ export default {
     this.collapseStatus = this.collapseStatus.map((status, index) => {
       return index === this.currentWeekday
     })
-    wx.pageScrollTo({
-      scrollTop: 110 + 37 * this.currentWeekday,
-      duration: 500
-    })
+
+    this.toCurrentDay()
   },
 
   onReady () {
@@ -151,8 +175,8 @@ export default {
   margin-bottom: 5px;
 }
 
-.day-wrapper.currentDay {
-  border: white 1px
+.day-wrapper.currentDay .primary_title .placeholder{
+  color: rgb(133, 5, 5)
 }
 
 </style>

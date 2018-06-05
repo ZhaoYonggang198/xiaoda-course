@@ -150,6 +150,25 @@ const actions = {
     })
   },
 
+  toUnbindPhone ({commit}, formId) {
+    return new Promise((resolve, reject) => {
+      wechat.getOpenId()
+        .then((openid) => {
+          _tobindPhone(openid, '', formId)
+            .then(() => {
+              commit('setPhone', '')
+              resolve()
+            })
+            .catch((err) => {
+              reject(err)
+            })
+        })
+        .catch((err) => {
+          reject(err)
+        })
+    })
+  },
+
   toGetPhone ({commit}) {
     return new Promise(function (resolve, reject) {
       wechat.getOpenId()
