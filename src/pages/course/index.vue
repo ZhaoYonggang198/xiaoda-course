@@ -1,0 +1,158 @@
+<template>
+  <view class="container page">
+    <view class="page__hd">
+      <view class="page__title">我的课表</view>
+      <view class="page__desc" @click="testTap"></view>
+    </view>
+    <view class="page__bd content">
+      <view class="day-wrapper" :id="'day'+i" :class="{currentDay: currentWeekday===i}" v-for="(day, i) in courseInfo" :key="i">
+        <view class="weui-flex primary_title" @click="switchCollapse(i)">
+          <view><view class="placeholder">{{day.name}}{{currentWeekday === i ? '(今天)':''}}</view></view>
+          <view class="weui-flex__item"></view>
+          <view>
+            <collapse :status="collapseStatus[i]" ></collapse>
+          </view>
+        </view>
+        <view  class="weui-cells weui-cells_after-title"  v-if="collapseStatus[i]">
+          <view class="interval">
+            <day-item :day="i" :intervals="day.interval" 
+              @courseUpdate="courseUpdate"
+              ></day-item>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+</template>
+
+<script>
+import dayItem from '@/components/dayItem'
+import collapse from '@/components/collapse'
+import {mapState, mapActions, mapMutations} from 'vuex'
+
+export default {
+  data () {
+    return {
+      collapseStatus: [false, false, false, false, false, false, false],
+      motto: 'Hello World',
+      animation: {},
+      currentWeekday: 0
+    }
+  },
+
+  computed: {
+    ...mapState({
+      courseInfo: state => state.courses.courseInfo,
+      openid: state => state.courses.openid
+    })
+  },
+
+  components: {
+    'day-item': dayItem,
+    collapse
+  },
+
+  methods: {
+    ...mapMutations([
+      // 'deleteCourse'
+    ]),
+    ...mapActions([
+      'getCourses',
+      'saveCourses',
+      'mergeCourses'
+    ]),
+
+    switchCollapse (day) {
+      var collapse = !this.collapseStatus[day]
+      this.collapseStatus[day] = collapse
+      this.collapseStatus = this.collapseStatus.concat([])
+    },
+
+    courseUpdate () {
+      this.saveCourses(this.courseInfo)
+    },
+
+    weekday () {
+      var date = new Date()
+      var weekday = date.getDay()
+      return weekday === 0 ? 6 : (weekday - 1)
+    }
+  },
+
+  created () {
+    this.getCourses()
+      .then(() => {
+        if (this.otherUser !== undefined) {
+          this.mergeCourses(this.otherUser)
+            .then(() => {
+              this.courseUpdate()
+            })
+        } else {
+          console.log('other user is empty')
+        }
+      })
+  },
+
+  onShow () {
+    this.currentWeekday = this.weekday()
+    this.collapseStatus = this.collapseStatus.map((status, index) => {
+      return index === this.currentWeekday
+    })
+    wx.pageScrollTo({
+      scrollTop: 110 + 37 * this.currentWeekday,
+      duration: 500
+    })
+  },
+
+  onReady () {
+    wx.showShareMenu({
+      withShareTicket: true
+    })
+  },
+
+  onLoad (option) {
+    console.log(option)
+    if (option.user !== undefined) {
+      this.otherUser = option.user
+    }
+  },
+
+  onShareAppMessage: function () {
+    return {
+      path: `/pages/course/main?user=${this.openid}`
+    }
+  },
+
+  onPageScroll: function (ev) {
+    console.log(ev)
+  }
+}
+</script>
+
+<style scoped>
+.content {
+  width: 100%;
+  padding: 0 5rpx;
+}
+
+.day {
+  overflow: hidden;
+}
+
+.primary_title {
+    background-color: rgba(0,0,0, 0.1);
+    border-left: solid 3px green;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.day-wrapper {
+  margin-bottom: 5px;
+}
+
+.day-wrapper.currentDay {
+  border: white 1px
+}
+
+</style>
