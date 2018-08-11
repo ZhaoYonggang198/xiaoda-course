@@ -4,31 +4,31 @@ const url = config.service.courseUrl
 
 const weekdays = [{
   backend: 'monday',
-  frontend: '星期一'
+  frontend: '周一'
 },
 {
   backend: 'tuesday',
-  frontend: '星期二'
+  frontend: '周二'
 },
 {
   backend: 'wednesday',
-  frontend: '星期三'
+  frontend: '周三'
 },
 {
   backend: 'thursday',
-  frontend: '星期四'
+  frontend: '周四'
 },
 {
   backend: 'friday',
-  frontend: '星期五'
+  frontend: '周五'
 },
 {
   backend: 'saturday',
-  frontend: '星期六'
+  frontend: '周六'
 },
 {
   backend: 'sunday',
-  frontend: '星期日'
+  frontend: '周日'
 }
 ]
 

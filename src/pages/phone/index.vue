@@ -30,14 +30,15 @@
               </button>
             </view>
           </view>
-          <view class="weui-cell weui-cell_input button-area">
-            <view class="weui-flex">
-              <view class="weui-flex__item">
-                <button class="weui-btn" type="primary" formType="submit" :disabled='sumbitDisable'>绑定</button>
-              </view>
-              <view class="weui-flex__item">
-                <button class="weui-btn" type="warn" formType="reset" :disabled='bindPhone.length === 0'>解绑</button>
-              </view>
+
+        </view>
+        <view class="button-area">
+          <view class="weui-flex">
+            <view class="weui-flex__item">
+              <button class="weui-btn" type="primary" formType="submit" :disabled='sumbitDisable'>绑定</button>
+            </view>
+            <view class="weui-flex__item">
+              <button class="weui-btn" type="warn" formType="reset" :disabled='bindPhone.length === 0'>解绑</button>
             </view>
           </view>
         </view>
@@ -49,7 +50,7 @@
 
 <script>
 
-import {mapState, mapActions} from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   data () {
@@ -129,9 +130,11 @@ export default {
     formSubmit (ev) {
       var formId = ev.mp.detail.formId
       if (this.validPhone && this.validCode) {
-        this.toBindPhone({phone: this.inputPhone,
+        this.toBindPhone({
+          phone: this.inputPhone,
           code: this.inputCode,
-          formId})
+          formId
+        })
           .then(() => {
             this.inputPhone = ''
             this.inputCode = ''
@@ -171,7 +174,10 @@ export default {
 
 <style scoped>
 .button-area .weui-flex {
-  width: 100%;
-  padding: 2px 2px  
+  padding-right: 5px;
+  padding-left: 5px;
+}
+.weui-cell_input {
+  padding-right: 5px;
 }
 </style>

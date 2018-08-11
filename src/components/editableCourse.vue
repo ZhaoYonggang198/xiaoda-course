@@ -5,17 +5,17 @@
         <view class="weui-flex__item">
         <input class="weui-input " placeholder="请输入课程" focus="true" :value="course" v-model="inputValue" @confirm="$emit('inputConfirm', inputValue)"/>
         </view>
-        <picker v-if="allCourses!==[]" class="" @change="$emit('inputConfirm',allCourses[$event.mp.detail.value])" :value="select" :range="allCourses">
+        <!-- <picker v-if="allCourses!==[]" class="" @change="$emit('inputConfirm',allCourses[$event.mp.detail.value])" :value="select" :range="allCourses">
           <view class="all-choice weui-input">
               备选课程
           </view>
-        </picker>
+        </picker> -->
       </view>
-      <view class="weui-cells select-list">
+      <scroll-view scroll-y="true" class="weui-cells select-list">
           <view class="weui-cell" @click="$emit('inputConfirm', course)" v-for="course in selectedCourses" :key="course">
               <view class="weui-cell__bd">{{course}}</view>
           </view>
-      </view>
+      </scroll-view>
     </view>
     <view class="editMask" @click="$emit('inputCancel')"></view>
   </view> 
@@ -43,7 +43,7 @@ export default {
       'allCourses'
     ]),
     selectedCourses () {
-      return this.allCourses.filter((course) => this.inputValue !== '' && course.indexOf(this.inputValue) !== -1)
+      return this.allCourses.filter((course) => course.indexOf(this.inputValue) !== -1)
     }
   },
 
@@ -62,39 +62,41 @@ export default {
   position: relative;
   left: 0;
   top: 0;
-  height:100%;
-  z-index: 3000!important;
+  height: 100%;
+  z-index: 3000 !important;
   background-color: white;
   margin-bottom: 3px;
   padding: 0 8px;
   border-radius: 20rpx;
+  width: 100%;
 }
-.input-area input{
+.input-area input {
   background-color: white;
   max-height: 40rpx !important;
 }
 
 .select-list {
-  width: 500rpx;
+  width: 100%;
   position: absolute;
-  z-index: 3000;
-  top: 48px;
+  bottom: 100%;
   background-color: #f8f8f8;
-  z-index: 1000;
   margin-top: 0 !important;
   display: block;
   z-index: 3000;
   font-size: 30rpx;
   color: #111111;
+  max-height: 300px;
   overflow-y: hidden;
-  transition: .5s;
+  transition: 0.5s;
+  left: -0px;
 }
 .elevation-8 {
-
-  -webkit-box-shadow: 0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)!important;
-  box-shadow: 0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)!important
+  -webkit-box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+    0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12) !important;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+    0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12) !important;
 }
-.editMask{
+.editMask {
   position: fixed;
   z-index: 1000;
   top: 0;
@@ -102,7 +104,6 @@ export default {
   left: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.3);
-  
 }
 .input-area picker .weui-input {
   background-color: rgb(207, 204, 204);
@@ -110,7 +111,6 @@ export default {
   border-radius: 5px;
 }
 .select-list .weui-cell:active {
-  background-color:  rgb(0, 128, 0, 0.5)
+  background-color: rgb(0, 128, 0, 0.5);
 }
-
 </style>

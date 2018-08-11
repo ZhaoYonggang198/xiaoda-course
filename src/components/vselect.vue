@@ -5,6 +5,9 @@
         <view class="weui-flex__item">
           <input :class="inputClass" :placeholder="placeholder" />
         </view>
+        <view>
+          
+        </view>
       </view>
     </view>
 
@@ -13,8 +16,8 @@
 
 <script>
 export default {
-  props: ['text']
-}
+  props: ["text"]
+};
 </script>
 
 <style>

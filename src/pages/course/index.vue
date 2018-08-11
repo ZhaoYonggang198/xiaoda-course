@@ -1,13 +1,19 @@
 <template>
   <block>
   <view v-if="loading" class="container page" >
-    <view class="icon-box">
-        <icon type="waiting" size="93"></icon>
-    </view>
+      <view class="placeholder" style="height: 100%">
+        <image style="height:200px; width: 200px" mode="aspectFit" src="../../static/image/logo.png" /> 
+      </view>
   </view>
   <view class="container page animated fadeIn" v-else>
-    <view class="page__hd">
-      <view class="page__title">我的课表</view>
+    <view class="page__hd" style="width:100%">
+      <view class="page__title">
+        <view class="weui-flex" >
+          <view class="weui-flex__item" >
+            我的课表
+          </view>
+        </view>
+      </view>
     </view>
     <view class="page__bd content">
       <view class="day-wrapper" :class="{currentDay: currentWeekday===i}" v-for="(day, i) in courseInfo" :key="i">
@@ -36,7 +42,7 @@
 <script>
 import dayItem from '@/components/dayItem'
 import collapse from '@/components/collapse'
-import {mapState, mapActions, mapMutations} from 'vuex'
+import { mapState, mapActions, mapMutations } from 'vuex'
 
 export default {
   data () {
@@ -52,7 +58,8 @@ export default {
   computed: {
     ...mapState({
       courseInfo: state => state.courses.courseInfo,
-      openid: state => state.courses.openid
+      openid: state => state.courses.openid,
+      editStatus: state => state.editStatus.status
     })
   },
 
@@ -165,18 +172,26 @@ export default {
 }
 
 .primary_title {
-    background-color: rgba(0,0,0, 0.1);
-    border-left: solid 3px green;
-    border-radius: 5px;
-    padding: 5px;
+  background-color: #e8ebeb;
+  color: black;
+  border-radius: 5px;
+  padding: 5px;
 }
 
 .day-wrapper {
   margin-bottom: 5px;
 }
 
-.day-wrapper.currentDay .primary_title .placeholder{
-  color: rgb(133, 5, 5)
+.day-wrapper.currentDay .primary_title .placeholder {
+  color: #1cb2b9;
 }
 
+.day-wrapper.currentDay .primary_title {
+  background-color: #dfdfdf;
+}
+
+.page__title .weui-flex__item {
+  text-align: center;
+  font-size: 2em;
+}
 </style>

@@ -35,7 +35,7 @@
 <script>
 import course from '@/components/course'
 import editableCourse from './editableCourse.vue'
-import {mapState} from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
   props: {

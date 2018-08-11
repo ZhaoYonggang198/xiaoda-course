@@ -66,7 +66,7 @@ export default {
       }
     },
     touchend (ev) {
-      if (this.deltaX > 0 || this.deltaX < 0) {
+      if (this.deltaX > 10 || this.deltaX < -10) {
         console.log(this.deltaX)
         this.moreActionShow = !this.moreActionShow
         this.deltaX = 0
@@ -80,7 +80,7 @@ export default {
 
     isInRange (deltaX) {
       return (this.moreActionShow && (deltaX > 0 && deltaX < 80)) ||
-            (!this.moreActionShow && (deltaX < 0 && deltaX > -80))
+        (!this.moreActionShow && (deltaX < 0 && deltaX > -80))
     },
 
     refreshActionStatus (deltaX) {
@@ -106,7 +106,7 @@ export default {
   overflow: hidden;
 }
 
-.show-more  {
+.show-more {
   -webkit-transform: translateX(0);
   transform: translateX(0);
 }
@@ -115,7 +115,7 @@ export default {
   overflow: hidden;
 }
 
-.hide-more  {
+.hide-more {
   -webkit-transform: translateX(80%);
   transform: translateX(80%);
 }
@@ -130,21 +130,20 @@ export default {
   border-right: solid white 1px;
 }
 
-
 .more-action .icon {
   color: white;
-  background-color:rgb(187, 182, 182);
+  background-color: rgb(187, 182, 182);
 }
 
 .more-action .icon.icon-ic_clear {
-  color: rgb(207, 75, 19)
+  color: rgb(207, 75, 19);
 }
 
 .action-area {
-  height: 100%!important;
+  height: 100% !important;
 }
 
 .icon:active {
-  font-size: 65rpx
+  font-size: 65rpx;
 }
 </style>
