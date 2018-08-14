@@ -1,5 +1,28 @@
-<template>
-  <nav-bar :navItems="weekdays" :defaultIndex="curDay" @tabActive="tabActive"></nav-bar>
+<template lang="pug">
+view(class="page content")
+  view(class="course-table")
+    view(class="weui-tab")
+      view(class="tab-title")
+        nav-bar(:navItems="weekdays" :defaultIndex="curDay" @tabActive="tabActive")/
+      view(class="weui-tab__panel")
+        view(class="weui-tab__content" v-for="(day, index) in courseInfo"
+            :key="index" v-if="activeDay == index")
+          scroll-view(scroll-y='true' style="height: auto")
+            block(v-for="(interval, j) in day.interval" :key="j")
+              i-panel(:title="interval.name" class="interval")
+                i-cell-group
+                  block(v-if="interval.course.length>0")
+                    block(v-for="(course, k) in interval.course" :key="k")
+                      i-cell(:title="course")
+                  block(v-else)
+                    i-cell(title="休息")
+  view(class="weui-flex")
+    view(class="weui-flex__item")
+      i-button(type="ghost" @iclick="editcourse") 编辑课表
+    view(class="weui-flex__item")
+      i-button(open-type="share" type="ghost") 分享课表
+    view(class="weui-flex__item")
+      i-button(type="primary" @iclick="bindphone") 关联小爱
 </template>
 
 <script>
@@ -9,7 +32,8 @@ import { mapState, mapActions } from 'vuex'
 export default {
   data () {
     return {
-      curDay: 0
+      curDay: 0,
+      activeDay: 0
     }
   },
 
@@ -34,7 +58,20 @@ export default {
   methods: {
     ...mapActions([
       'getCourses'
-    ])
+    ]),
+    tabActive (index) {
+      this.activeDay = index
+    },
+    bindphone () {
+      wx.navigateTo({
+        url: '/pages/phone/main'
+      })
+    },
+    editcourse () {
+      wx.navigateTo({
+        url: '/pages/editcourse/main'
+      })
+    }
   },
 
   created () {
@@ -52,39 +89,18 @@ export default {
 </script>
 
 <style scoped>
-.userinfo {
+.page {
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
-
-.userinfo-avatar {
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
-  border-radius: 50%;
+.tab-title {
+  background: #999;
+  z-index: 2;
 }
-
-.userinfo-nickname {
-  color: #aaa;
-}
-
-.usermotto {
-  margin-top: 150px;
-}
-
-.form-control {
-  display: block;
-  padding: 0 12px;
-  margin-bottom: 5px;
-  border: 1px solid #ccc;
-}
-
-.counter {
-  display: inline-block;
-  margin: 10px auto;
-  padding: 5px 10px;
-  color: blue;
-  border: 1px solid blue;
+.course-table {
+  flex: 1;
+  flex-direction:column;
+  display: flex;
 }
 </style>

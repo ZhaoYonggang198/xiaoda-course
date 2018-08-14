@@ -16,26 +16,12 @@ export default {
   // 这个字段走 app.json
   config: {
     // 页面前带有 ^ 符号的，会被编译成首页，其他页面可以选填，我们会自动把 webpack entry 里面的入口页面加进去
-    pages: ['^pages/course/main'],
+    pages: ['^pages/index/main'],
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#fff',
       navigationBarTitleText: '小哒课表',
       navigationBarTextStyle: 'black'
-    },
-    tabBar: {
-      list: [{
-        pagePath: 'pages/course/main',
-        text: '我的课表',
-        iconPath: 'static/image/ic_event_note.png',
-        selectedIconPath: 'static/image/ic_event_note_sel.png'
-      }, {
-        pagePath: 'pages/phone/main',
-        text: '关联小爱',
-        iconPath: 'static/image/phone.png',
-        selectedIconPath: 'static/image/phone_sel.png'
-      }],
-      selectedColor: '#0b915d'
     }
   }
 }

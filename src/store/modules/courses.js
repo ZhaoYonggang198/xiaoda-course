@@ -108,6 +108,22 @@ const mutations = {
     state.courseInfo = courseInfo
   },
 
+  moveupCourse (state, {day, interval, course}) {
+    let courses = state.courseInfo[day].interval[interval].course
+    if (course > 0) {
+      let array = courses.splice(course, 1)
+      state.courseInfo[day].interval[interval].course.splice(course - 1, 0, ...array)
+    }
+  },
+
+  movedownCourse (state, {day, interval, course}) {
+    let courses = state.courseInfo[day].interval[interval].course
+    if (course < (courses.length - 1)) {
+      let array = courses.splice(course, 1)
+      state.courseInfo[day].interval[interval].course.splice(course + 1, 0, ...array)
+    }
+  },
+
   deleteCourse (state, {day, interval, course}) {
     state.courseInfo[day].interval[interval].course.splice(course, 1)
   },
@@ -117,16 +133,10 @@ const mutations = {
   },
 
   appendCourse (state, {day, interval, value}) {
-    console.log('appendCourse')
-    console.log(state)
-    console.log({day, interval, value})
     state.courseInfo[day].interval[interval].course.push(value)
   },
 
   appendCourseAfter (state, {day, interval, course, value}) {
-    console.log('appendCourseAfter')
-    console.log(state)
-    console.log({day, interval, course, value})
     state.courseInfo[day].interval[interval].course.splice(course, 0, value)
   },
 
@@ -135,7 +145,6 @@ const mutations = {
     if (allCourses.length === 0) {
       state.courseInfo = courseInfo
     }
-    console.log(state)
   },
 
   setOpenId (state, openid) {

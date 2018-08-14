@@ -35,6 +35,7 @@ export default {
   watch: {
     defaultIndex: function (val) {
       this.activeIndex = val
+      this.$emit('tabActive', val)
     }
   },
   computed: {
@@ -71,5 +72,9 @@ export default {
 <style scoped>
 .weui-navbar__slider {
   width: 3em;
+}
+
+.weui-navbar {
+  background-color: white;
 }
 </style>
