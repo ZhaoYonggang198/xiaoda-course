@@ -4,11 +4,13 @@ import store from './store'
 import 'weui-wxss/dist/app.wxss'
 import 'animate.css/animate.css'
 import '@/../static/font/iconfont.css'
+import titlebar from '@/components/titlebar'
 
 Vue.config.productionTip = false
 App.mpType = 'app'
 Vue.prototype.$store = store
 
+Vue.component('titlebar', titlebar)
 const app = new Vue(App)
 app.$mount()
 
@@ -19,9 +21,10 @@ export default {
     pages: ['^pages/index/main'],
     window: {
       backgroundTextStyle: 'light',
-      navigationBarBackgroundColor: '#fff',
+      navigationBarBackgroundColor: '#1c2438',
       navigationBarTitleText: '小哒课表',
-      navigationBarTextStyle: 'black'
+      navigationBarTextStyle: 'white',
+      navigationStyle: 'custom'
     }
   }
 }

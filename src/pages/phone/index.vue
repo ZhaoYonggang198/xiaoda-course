@@ -1,5 +1,6 @@
 <template lang="pug">
 view(class="page")
+  titlebar(title="关联小爱")
   swiper(indicator-dots="true" autoplay="true" interval="5000" circular="true" class="swiper-wrapper")
     swiper-item
       view(class="swiper-item")
@@ -7,12 +8,12 @@ view(class="page")
         view(class="page__desc") 绑定手机可以帮助在小爱智能音箱上更方便地使用我的课表技能
     swiper-item
       view(class="swiper-item")
-        image(src="/static/image/xiaoai.png")
-        view(class="page__desc") 绑定手机可以帮助在小爱智能音箱上更方便地使用我的课表技能
+        image(src="/static/image/xiaoaimin.png")
+        view(class="page__desc") 对着小爱音箱说“小爱同学，打开我的课表”可以在音箱上使用课程表功能
     swiper-item
       view(class="swiper-item")
         image(src="/static/image/xiaoai.png")
-        view(class="page__desc") 绑定手机可以帮助在小爱智能音箱上更方便地使用我的课表技能
+        view(class="page__desc") 在这里绑定手机，并在小爱音箱绑定同一个手机，可以在音箱上使用小程序上创建的课程表
     
   i-panel(:title="bindPhone?'已绑定手机：' + bindPhone:''")
     i-input(:value="inputPhone" @change="phonechange" type="number" maxlength="11" title="手机号" placeholder="请输入手机号")
@@ -25,56 +26,6 @@ view(class="page")
         i-button(type="error" @iclick="formReset" :disabled='bindPhone.length === 0') 解绑
       view(class="weui-flex__item")
         i-button(type="primary" @iclick="formSubmit" :disabled='sumbitDisable') 绑定
-
-        
-
-  //- <view class="container page">
-  //-   <view class="page__hd">
-  //-     <view class="page__title">绑定手机</view>
-  //-     <view class="page__desc">绑定手机可以帮助在小爱智能音箱上更方便地使用“我的课表”技能</view>
-  //-   </view>
-  //-   <view class="page__bd content">
-  //-     <view class="weui-toptips weui-toptips_warn" v-if="false">错误提示</view>
-  //-     <view class="weui-cells__title" v-if="bindPhone.length !== 0">已绑定手机：{{bindPhone}}</view>
-  //-     <form report-submit='true' @submit="formSubmit" @reset="formReset">
-  //-       <view class="weui-cells weui-cells_after-title">
-  //-         <view class="weui-cell weui-cell_input">
-  //-           <view class="weui-cell__hd">
-  //-             <view class="weui-label">手机号</view>
-  //-           </view>
-  //-           <view class="weui-cell__bd">
-  //-             <input class="weui-input" placeholder="请输入手机号" v-model="inputPhone" type="number"/>
-  //-           </view>           
-  //-         </view>
-  //-         <view class="weui-cell weui-cell_input weui-cell_vcode">
-  //-           <view class="weui-cell__hd">
-  //-             <view class="weui-label">验证码</view>
-  //-           </view>
-  //-           <view class="weui-cell__bd">
-  //-             <input class="weui-input" placeholder="请输入验证码" v-model="inputCode" type="number"/>
-  //-           </view>
-  //-           <view class="weui-cell__ft">
-  //-             <button class="weui-vcode-btn" type="primary" plain="true" :disabled="vcodeDisable" @click="requestCode">
-  //-               {{vcodeOperation}}
-  //-             </button>
-  //-           </view>
-  //-         </view>
-
-  //-       </view>
-  //-       <view class="button-area">
-  //-         <view class="weui-flex">
-  //-           <view class="weui-flex__item">
-  //-             <button class="weui-btn" type="primary" formType="submit" :disabled='sumbitDisable'>绑定</button>
-  //-           </view>
-  //-           <view class="weui-flex__item">
-  //-             <button class="weui-btn" type="warn" formType="reset" :disabled='bindPhone.length === 0'>解绑</button>
-  //-           </view>
-  //-         </view>
-  //-       </view>
-  //-     </form>
-
-  //-   </view>
-  //- </view>  
 </template>
 
 <script>
@@ -154,7 +105,7 @@ export default {
     },
 
     formReset (ev) {
-      var formId = ev.mp.detail.formId
+      var formId = 1
       this.toUnbindPhone(formId).then(() => {
         wx.showToast({
           title: '绑定成功',
@@ -165,7 +116,7 @@ export default {
     },
 
     formSubmit (ev) {
-      var formId = ev.mp.detail.formId
+      var formId = 1
       if (this.validPhone && this.validCode) {
         this.toBindPhone({
           phone: this.inputPhone,
@@ -224,7 +175,7 @@ export default {
 }
 
 .swiper-wrapper {
-  height: 300px;
+  height: 280px;
   width: 100%;
   background: white;
 }

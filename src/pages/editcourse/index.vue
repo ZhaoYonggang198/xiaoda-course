@@ -1,5 +1,6 @@
 <template lang="pug">
 view(class="page content")
+  titlebar(title="编辑课表")
   view(class="course-table")
     view(class="weui-tab")
       view(class="tab-title")
@@ -136,6 +137,6 @@ export default {
   display: flex;
 }
 .active-course {
-  border: solid 2rpx #1cb2b9;
+  border: solid 2rpx #2b85e4;
 }
 </style>
