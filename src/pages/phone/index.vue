@@ -15,17 +15,17 @@ view(class="page")
         image(src="/static/image/xiaoai.png")
         view(class="page__desc") 在这里绑定手机，并在小爱音箱绑定同一个手机，可以在音箱上使用小程序上创建的课程表
     
-  i-panel(:title="bindPhone?'已绑定手机：' + bindPhone:''")
+  i-panel(:title="bindPhone?'已绑定手机：' + bindPhone:''" class="form")
     i-input(:value="inputPhone" @change="phonechange" type="number" maxlength="11" title="手机号" placeholder="请输入手机号")
     view(class="weui-flex")
       view(class="weui-flex__item")
         i-input(:value="inputCode" @change="codechange" type="number" maxlength="6" title="验证码" placeholder="请输入验证码")
-      i-button(type="info" plain="true" :disabled="vcodeDisable" @iclick="requestCode") {{vcodeOperation}}
-    view(class="weui-flex")
-      view(class="weui-flex__item")
-        i-button(type="error" @iclick="formReset" :disabled='bindPhone.length === 0') 解绑
-      view(class="weui-flex__item")
-        i-button(type="primary" @iclick="formSubmit" :disabled='sumbitDisable') 绑定
+      i-button(type="info" size="small" :disabled="vcodeDisable" @iclick="requestCode") {{vcodeOperation}}
+  view(class="weui-flex")
+    view(class="weui-flex__item")
+      i-button(type="error" @iclick="formReset" size="small" :disabled='bindPhone.length === 0') 解绑
+    view(class="weui-flex__item")
+      i-button(type="primary" @iclick="formSubmit" size="small" :disabled='sumbitDisable') 绑定
 </template>
 
 <script>
@@ -166,10 +166,22 @@ export default {
 </script>
 
 <style scoped>
+.page {
+  background: white;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.page .form {
+  flex: 1
+}
+
 .button-area .weui-flex {
   padding-right: 5px;
   padding-left: 5px;
 }
+
 .weui-cell_input {
   padding-right: 5px;
 }
@@ -179,11 +191,13 @@ export default {
   width: 100%;
   background: white;
 }
+
 .swiper-item {
   text-align: center;
   padding-left: 50rpx;
   padding-right: 50rpx;
 }
+
 .swiper-item image {
   height: 400rpx;
   width: 600rpx;

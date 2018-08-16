@@ -12,10 +12,7 @@ export default {
       'i-panel': '/static/iview/panel/index',
       'i-cell-group': '/static/iview/cell-group/index',
       'i-cell': '/static/iview/cell/index',
-      'i-button': '/static/iview/button/index',
-      'i-icon': '/static/iview/icon/index',
-      'i-popup': '/static/iview/popup/index',
-      'i-input': '/static/iview/input/index'
+      'i-button': '/static/iview/button/index'
     }
   }
 }

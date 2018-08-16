@@ -3,13 +3,12 @@ view
   i-popup(visible="true" @ok="confirm" @cancel="cancel" :title="title")
     view(style="text-align: left")
         view(class="input-wrapper")
-          i-input(:value="coursename" placeholder="请输入课程名" autofocus :error="error"
-            @change="change")
+          input(:value="coursename" class="weui-input" placeholder="请输入课程名" focus="true" :error="error"
+            @input="change")
           i-cell-group(class="select-course" v-if="showSelectCourse")
             block(v-for="(item, index) in selectCourses" :key="item")
               i-cell(:title="item" @iclick="select(item)") 
-                view(class="choose-item" slot="icon")
-          
+                view(class="choose-item" slot="icon")        
   i-message#message
 </template>
 
@@ -58,7 +57,7 @@ export default {
       }
     },
     selectCourses () {
-      if (this.coursename === 0) {
+      if (this.coursename === undefined) {
         return []
       }
       return this.$store.getters.allCourses.filter((course) => {
@@ -99,8 +98,8 @@ export default {
       this.$emit('editdone')
     },
     change (event) {
-      console.log(event)
-      this.coursename = event.mp.detail.detail.value
+      this.showSelectCourse = true
+      this.coursename = event.mp.detail.value
     },
     select (item) {
       this.coursename = item
@@ -112,11 +111,12 @@ export default {
     } else {
       this.coursename = this.courseInfo[this.day].interval[this.interval].course[this.course]
     }
+    this.showSelectCourse = false
   }
 }
 </script>
 
-<style>
+<style scoped>
 .choose-item {
   width: 15rpx;
   height: 15rpx;
@@ -128,5 +128,12 @@ export default {
 }
 .select-course {
   max-height: 100px;
+  box-shadow: 0px 3px 3px -2px rgba(0,0,0,0.2), 0px 3px 4px 0px rgba(0,0,0,0.14), 0px 1px 8px 0px rgba(0,0,0,0.12) !important;
+}
+.weui-input {
+  padding: 10rpx 20rpx;
+  color: black;
+  display: block;
+  box-shadow: 0px 3px 3px -2px rgba(0,0,0,0.2), 0px 3px 4px 0px rgba(0,0,0,0.14), 0px 1px 8px 0px rgba(0,0,0,0.12) !important;
 }
 </style>

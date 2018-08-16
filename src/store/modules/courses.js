@@ -144,6 +144,16 @@ const mutations = {
     var allCourses = __allCourses(state)
     if (allCourses.length === 0) {
       state.courseInfo = courseInfo
+    } else {
+      for (let dayidx in state.courseInfo) {
+        let day = courseInfo[dayidx]
+        for (let intervalidx in state.courseInfo[dayidx].interval) {
+          if (state.courseInfo[dayidx].interval[intervalidx].course.length === 0) {
+            state.courseInfo[dayidx].interval[intervalidx].course =
+              day.interval[intervalidx].course
+          }
+        }
+      }
     }
   },
 
@@ -174,6 +184,9 @@ function __getCourses (openid) {
 }
 
 const actions = {
+  getOtherCourses ({commit}, openid) {
+    return __getCourses(openid)
+  },
   getCourses ({commit}) {
     return new Promise(function (resolve, reject) {
       wechat.getOpenId().then((openid) => {
