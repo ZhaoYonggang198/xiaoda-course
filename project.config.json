@@ -9,7 +9,7 @@
 	},
 	"miniprogramRoot": "./dist/",
 	"compileType": "miniprogram",
-	"appid": "wxbe32bc1178f45f33",
+	"appid": "wx5722b47b385fce63",
 	"projectname": "xiaoda-course",
 	"condition": {
 		"search": {
@@ -29,13 +29,13 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
+			"current": 0,
 			"list": [
 				{
 					"id": 0,
 					"name": "单人share",
-					"pathName": "pages/course/main",
-					"query": "user=o8LiG5MkSJz9ZN4cnwwDx5iRkmCo",
+					"pathName": "pages/courseinfo/main",
+					"query": "user=o8LiG5M08KDVdEfh5A9qpK12uP0c",
 					"scene": "1007"
 				}
 			]

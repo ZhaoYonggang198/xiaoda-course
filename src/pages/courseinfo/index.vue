@@ -1,6 +1,7 @@
 <template lang="pug">
 view(class="page content")
-  titlebar(title="")
+  titlebar()
+  <text></text>
   view(class="course-table")
     view(class="weui-tab")
       view(class="tab-title")
