@@ -9,7 +9,7 @@
 	},
 	"miniprogramRoot": "./dist/",
 	"compileType": "miniprogram",
-	"appid": "wx5722b47b385fce63",
+	"appid": "wx7354d1988386caee",
 	"projectname": "xiaoda-course",
 	"condition": {
 		"search": {

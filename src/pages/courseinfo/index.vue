@@ -1,7 +1,7 @@
 <template lang="pug">
 view(class="page content")
-  titlebar()
-  <text></text>
+  titlebar(title="")
+  <view class="title">你朋友的课表</view>
   view(class="course-table")
     view(class="weui-tab")
       view(class="tab-title")
@@ -22,7 +22,7 @@ view(class="page content")
     view(class="weui-flex__item")
       i-button(size="small" @iclick="gotocourse") 回到主页    
     view(class="weui-flex__item")
-      i-button(size="small" @iclick="mergecourse") 复制课程
+      i-button(size="small" type="primary" @iclick="mergecourse") 复制课程
     //- view(class="weui-flex__item")
     //-   i-button(type="ghost" size="small" @iclick="mergecourse") 合并课程
 </template>
@@ -113,5 +113,10 @@ export default {
   flex: 1;
   flex-direction:column;
   display: flex;
+}
+.title {
+  padding: 30rpx;
+  text-align: center;
+  vertical-align: center;
 }
 </style>
